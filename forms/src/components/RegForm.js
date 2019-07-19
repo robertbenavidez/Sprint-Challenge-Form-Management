@@ -49,23 +49,22 @@ function RegForm({ errors, touched, values }){
           
           
       
-        // handleSubmit(values, { resetForm }) {
-        //   console.log("values", values)
-        //   axios
-        //     .post("https://reqres.in/api/users", values)
-        //     .then(res => {
-        //       console.log("response data", res.data); 
-        //       let data = res.data
-        //       console.log(data)
-        //       resetForm()
-        //       // window.alert(`${data}!`)
-        //       window.alert(JSON.stringify(`Welcome to the Team ${data.name}!`));
-        //     })
-        //     .catch(err => {
-        //       console.log("error", err); 
-        //     });
+        handleSubmit(values, formikBag) {
+          console.log(values, formikBag)
+          axios
+            .post("http://localhost:5000", values)
+            .then(res => {
+              console.log("response data", res.data); 
+              let data = res.data
+              console.log(data)
+              
             
-        // }
+            })
+            .catch(err => {
+              console.log("error", err); 
+            });
+            
+        }
 
     }
     )(RegForm)
