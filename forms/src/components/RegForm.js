@@ -52,7 +52,7 @@ function RegForm({ errors, touched, values }){
         handleSubmit(values, formikBag) {
           console.log(values, formikBag)
           axios
-            .post("http://localhost:5000", values)
+            .post("http://localhost:6000/api/register", values)
             .then(res => {
               console.log("response data", res.data); 
               let data = res.data
