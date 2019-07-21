@@ -1,9 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import { withFormik, Form, Field } from "formik";
-import axios from "axios";
+//import axios from "axios";
 import * as Yup from "yup";
 
-function RegForm({ errors, touched, values }){
+import axiosWithAuth from '../axiosWithAuth';
+//import useLocalStorage from '../hooks/useLocalStorage';
+
+//window.axios = axios;
+
+function RegForm({ errors, touched}){
+    
     return (
        <div>
            <Form>
@@ -30,10 +36,10 @@ function RegForm({ errors, touched, values }){
     }
     
     export default withFormik({
-        mapPropsToValues: (username, password) => {
+        mapPropsToValues () {
           return {
-            username: username || "",
-            password: password || ""
+            username: "",
+            password: ""
           };
         },
 
@@ -50,15 +56,12 @@ function RegForm({ errors, touched, values }){
           
       
         handleSubmit(values, formikBag) {
-          console.log(values, formikBag)
-          axios
-            .post("http://localhost:6000/api/register", values)
+          console.log(values)
+          axiosWithAuth()
+            .post("/register", values)
             .then(res => {
-              console.log("response data", res.data); 
-              let data = res.data
-              console.log(data)
-              
-            
+             formikBag.props.setInitialToken(res.data.token)
+             formikBag.props.history.push("/display")
             })
             .catch(err => {
               console.log("error", err); 
